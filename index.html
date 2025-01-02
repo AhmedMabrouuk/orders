@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Breakfast Orders</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Company Breakfast Orders</h1>
+    <p>Place your order below:</p>
+
+    <form id="orderForm">
+        <div>
+            <label>Sandwich 1 (Cheese) - $<span>5</span></label>
+            <input type="number" id="sandwich1" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 2 (Turkey) - $<span>7</span></label>
+            <input type="number" id="sandwich2" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 3 (Egg) - $<span>4</span></label>
+            <input type="number" id="sandwich3" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 4 (Veggie) - $<span>6</span></label>
+            <input type="number" id="sandwich4" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 5 (Beef) - $<span>8</span></label>
+            <input type="number" id="sandwich5" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 6 (Chicken) - $<span>7</span></label>
+            <input type="number" id="sandwich6" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 7 (Tuna) - $<span>6</span></label>
+            <input type="number" id="sandwich7" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 8 (Grilled Cheese) - $<span>5</span></label>
+            <input type="number" id="sandwich8" min="0" placeholder="Quantity" />
+        </div>
+        <div>
+            <label>Sandwich 9 (Ham) - $<span>7</span></label>
+            <input type="number" id="sandwich9" min="0" placeholder="Quantity" />
+        </div>
+        <button type="button" id="submitOrder">Submit Order</button>
+    </form>
+
+    <h2>Final Order Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sandwich</th>
+                <th>Total Quantity</th>
+            </tr>
+        </thead>
+        <tbody id="orderSummary">
+            <tr><td>Sandwich 1 (Cheese)</td><td id="totalSandwich1">0</td></tr>
+            <tr><td>Sandwich 2 (Turkey)</td><td id="totalSandwich2">0</td></tr>
+            <tr><td>Sandwich 3 (Egg)</td><td id="totalSandwich3">0</td></tr>
+            <tr><td>Sandwich 4 (Veggie)</td><td id="totalSandwich4">0</td></tr>
+            <tr><td>Sandwich 5 (Beef)</td><td id="totalSandwich5">0</td></tr>
+            <tr><td>Sandwich 6 (Chicken)</td><td id="totalSandwich6">0</td></tr>
+            <tr><td>Sandwich 7 (Tuna)</td><td id="totalSandwich7">0</td></tr>
+            <tr><td>Sandwich 8 (Grilled Cheese)</td><td id="totalSandwich8">0</td></tr>
+            <tr><td>Sandwich 9 (Ham)</td><td id="totalSandwich9">0</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Receipt</h2>
+    <p id="receipt"></p>
+
+    <button type="button" id="resetOrders">Reset Orders</button>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h3 class="text-center pt-3">Product management system</h3>
+    <div class="parent  w-75 m-auto">
+
+        <label class="mb-1" for="email">email</label>
+        <input class="form-control" id="email" type="text" name="email">
+   
+        <label class="mb-1" for="password">password</label>
+        <input class="form-control" id="password" type="text" name="password">
+        
+
+       
+
+       <button onclick="signin();"   class="btn btn-outline-info mt-1">sign in</button>
+       <button onclick="signup();"  class="btn btn-outline-success mt-1">sign up</button>
+
+    </div> -->
+
+    <!-- <div class="parent  w-75 m-auto">
+        <label class="mb-1" for="productNameInput">product name</label>
+        <input class="form-control" id="productNameInput" type="text" name="productName">
+   
+        <label class="mb-1" for="productModelInput">product model</label>
+        <input class="form-control" id="productModelInput" type="text" name="productModel">
+   
+        <label class="mb-1" for="productPriceInput">product price</label>
+        <input class="form-control" id="productPriceInput" type="number" name="productPrice">
+        
+
+       
+
+       <button onclick="AddProduct();"   class="btn btn-outline-info mt-1">Add product</button>
+       <button onclick="updateProduct();"  class="btn btn-outline-success mt-1">update product</button>
+
+    </div>
+    <hr/> 
+    <table class="table w-75 m-auto">
+        <thead>
+            <th>index</th>
+            <th>product name</th>
+            <th>product model</th>
+            <th id="aa" >product price</th>
+            <th>update</th>
+            <th>delete</th>
+            
+        </thead>
+        <tbody id="tableBody"></tbody> -->
+    <!-- </table> -->
+
+
+
+    <script src="js/bootstrap.bundle.min.js" ></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
