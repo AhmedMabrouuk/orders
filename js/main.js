@@ -1,81 +1,50 @@
-// Import the functions from Firebase SDKs
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
-
-// Your Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBL0rkLQhibArmSXXI4SGGHnsehugFlseo",
-    authDomain: "orders-8dbea.firebaseapp.com",
-    databaseURL: "https://orders-8dbea-default-rtdb.firebaseio.com",
-    projectId: "orders-8dbea",
-    storageBucket: "orders-8dbea.firebasestorage.app",
-    messagingSenderId: "564619354178",
-    appId: "1:564619354178:web:9d08279d6e0a71d1ac4ddb",
-    measurementId: "G-D3M3C7NZTR"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
 document.addEventListener("DOMContentLoaded", function () {
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBL0rkLQhibArmSXXI4SGGHnsehugFlseo",
+        authDomain: "orders-8dbea.firebaseapp.com",
+        databaseURL: "https://orders-8dbea-default-rtdb.firebaseio.com",
+        projectId: "orders-8dbea",
+        storageBucket: "orders-8dbea.firebasestorage.app",
+        messagingSenderId: "564619354178",
+        appId: "1:564619354178:web:9d08279d6e0a71d1ac4ddb",
+        measurementId: "G-D3M3C7NZTR"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
     const prices = [5, 7, 4, 6, 8, 7, 6, 5, 7];
-    let totals = Array(prices.length).fill(0);
+    const totalsRef = ref(database, "totals");
+    const ordersRef = ref(database, "orders");
 
-    // Load orders from Firebase and update the UI
-    function loadOrdersFromFirebase() {
-        const ordersRef = ref(database, "orders/");
-        onValue(ordersRef, (snapshot) => {
-            const orders = snapshot.val();
-            const tableBody = document.getElementById("allOrders");
-            tableBody.innerHTML = ''; // Clear existing rows
-
-            totals = Array(prices.length).fill(0); // Reset totals
-
-            if (orders) {
-                Object.values(orders).forEach(order => {
-                    // Add order to the All Orders table
-                    const row = document.createElement("tr");
-                    row.innerHTML = `<td>${order.name}</td><td>${order.details}</td><td>$${order.totalPrice}</td>`;
-                    tableBody.appendChild(row);
-
-                    // Update totals
-                    order.quantities.forEach((quantity, index) => {
-                        totals[index] += quantity;
-                    });
-                });
-
-                // Update the Final Order Summary table
-                totals.forEach((total, index) => {
-                    document.getElementById(`totalSandwich${index + 1}`).innerText = total;
-                });
-            }
+    // Load orders from Firebase and display them
+    function loadOrders() {
+        // Load totals
+        onValue(totalsRef, (snapshot) => {
+            const totals = snapshot.val() || Array(prices.length).fill(0);
+            totals.forEach((total, index) => {
+                document.getElementById(`totalSandwich${index + 1}`).innerText = total;
+            });
         });
-    }
 
-    // Validate input
-    function validateInput(userName, quantities) {
-        if (!userName.trim()) {
-            alert("Please enter your name.");
-            return false;
-        }
-        if (!quantities.some(q => q > 0)) {
-            alert("Please order at least one sandwich.");
-            return false;
-        }
-        return true;
-    }
+        // Load orders
+        onValue(ordersRef, (snapshot) => {
+            const data = snapshot.val() || [];
+            const tableBody = document.getElementById("allOrders");
+            tableBody.innerHTML = ""; // Clear previous rows
 
-    // Add an order to Firebase
-    function addOrderToFirebase(userName, orderDetails, quantities, totalPrice) {
-        const ordersRef = ref(database, "orders/");
-        const newOrderRef = push(ordersRef);
-
-        set(newOrderRef, {
-            name: userName,
-            details: orderDetails.join(", "),
-            quantities: quantities,
-            totalPrice: totalPrice
+            for (const key in data) {
+                const order = data[key];
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${order.name}</td><td>${order.details}</td><td>$${order.totalPrice}</td>`;
+                tableBody.appendChild(row);
+            }
         });
     }
 
@@ -95,25 +64,69 @@ document.addEventListener("DOMContentLoaded", function () {
         // Validate input
         if (!validateInput(userName, quantities)) return;
 
-        // Calculate total price and order details
+        // Calculate totals and order details
         for (let i = 0; i < quantities.length; i++) {
             if (quantities[i] > 0) {
                 orderDetails.push(`Sandwich ${i + 1}: ${quantities[i]} x $${prices[i]}`);
+                totalPrice += quantities[i] * prices[i];
             }
-            totalPrice += quantities[i] * prices[i];
         }
 
-        // Save the order to Firebase
-        addOrderToFirebase(userName, orderDetails, quantities, totalPrice);
+        const order = {
+            name: userName,
+            details: orderDetails.join(", "),
+            totalPrice,
+        };
+
+        // Update totals in Firebase
+        updateTotals(quantities);
+
+        // Save order to Firebase
+        const newOrderRef = push(ordersRef);
+        set(newOrderRef, order).then(() => {
+            console.log("Order added to Firebase!");
+        });
 
         // Reset the form
         document.getElementById("orderForm").reset();
-        console.log("Order added successfully!");
+    }
+
+    // Update Totals in Firebase
+    function updateTotals(quantities) {
+        onValue(totalsRef, (snapshot) => {
+            const currentTotals = snapshot.val() || Array(prices.length).fill(0);
+            const newTotals = currentTotals.map((total, index) => total + quantities[index]);
+            set(totalsRef, newTotals).then(() => {
+                console.log("Totals updated in Firebase!");
+            });
+        }, { onlyOnce: true });
     }
 
     // Reset Orders Function
     function resetOrders() {
-        alert("This function needs manual deletion of orders in Firebase for now.");
+        // Clear totals and orders in Firebase
+        set(totalsRef, Array(prices.length).fill(0));
+        set(ordersRef, null);
+
+        // Clear UI
+        for (let i = 1; i <= prices.length; i++) {
+            document.getElementById(`totalSandwich${i}`).innerText = 0;
+        }
+        document.getElementById("allOrders").innerHTML = "";
+        console.log("Orders reset successfully!");
+    }
+
+    // Validate input
+    function validateInput(userName, quantities) {
+        if (!userName.trim()) {
+            alert("Please enter your name.");
+            return false;
+        }
+        if (!quantities.some(q => q > 0)) {
+            alert("Please order at least one sandwich.");
+            return false;
+        }
+        return true;
     }
 
     // Attach event listeners
@@ -121,8 +134,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("resetOrders").addEventListener("click", resetOrders);
 
     // Load orders from Firebase
-    loadOrdersFromFirebase();
+    loadOrders();
 });
+
 
 
 // document.addEventListener("DOMContentLoaded", function () {

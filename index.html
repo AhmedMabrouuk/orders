@@ -97,8 +97,32 @@
     <button type="button" id="resetOrders">Reset Orders</button>
 
     <script src="app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBL0rkLQhibArmSXXI4SGGHnsehugFlseo",
+          authDomain: "orders-8dbea.firebaseapp.com",
+          databaseURL: "https://orders-8dbea-default-rtdb.firebaseio.com",
+          projectId: "orders-8dbea",
+          storageBucket: "orders-8dbea.firebasestorage.app",
+          messagingSenderId: "564619354178",
+          appId: "1:564619354178:web:9d08279d6e0a71d1ac4ddb",
+          measurementId: "G-D3M3C7NZTR"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js"></script> -->
 </body>
 </html>
 
