@@ -49,7 +49,27 @@
         </div>
         <button type="button" id="submitOrder">Submit Order</button>
     </form>
-
+    <form id="orderForm">
+        <div>
+            <label>Name:</label>
+            <input type="text" id="userName" placeholder="Enter your name" required />
+        </div>
+        <!-- Other form fields remain unchanged -->
+    </form>
+    
+    <h2>All Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Sandwiches Ordered</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="allOrders"></tbody>
+    </table>
+    
+    
     <h2>Final Order Summary</h2>
     <table>
         <thead>
