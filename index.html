@@ -96,8 +96,14 @@
 
     <button type="button" id="resetOrders">Reset Orders</button>
 
-    <script src="app.js"></script>
-    <script type="module">
+    <script src="main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+    
+</body>
+</html>
+
+    <!-- <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
@@ -120,13 +126,9 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-      </script>
+      </script> -->
     <!-- <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js"></script> -->
-</body>
-</html>
-
-
 
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -187,5 +189,52 @@
 
     <script src="js/bootstrap.bundle.min.js" ></script>
     <script src="js/main.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+    
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_y_l8zDDzn18hF6wbn0Yud0pHQUQj6jk",
+            authDomain: "breakfastorders.firebaseapp.com",
+            projectId: "breakfastorders",
+            storageBucket: "breakfastorders.appspot.com",
+            messagingSenderId: "571174131",
+            appId: "1:571174131:web:082181d2e65be3f73e5b86",
+            measurementId: "G-L19YB7L5T7"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    
+        // Initialize Firestore
+        const db = getFirestore(app);
+    </script>
+    <!-- <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyC_y_l8zDDzn18hF6wbn0Yud0pHQUQj6jk",
+          authDomain: "breakfastorders.firebaseapp.com",
+          projectId: "breakfastorders",
+          storageBucket: "breakfastorders.firebasestorage.app",
+          messagingSenderId: "571174131",
+          appId: "1:571174131:web:082181d2e65be3f73e5b86",
+          measurementId: "G-L19YB7L5T7"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script> -->
 </body>
 </html>
+
+
+
