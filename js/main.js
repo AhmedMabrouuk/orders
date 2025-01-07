@@ -251,8 +251,7 @@
 
 
 // Firebase initialization (replace the config object with your Firebase credentials)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
