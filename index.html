@@ -1,240 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Breakfast Orders</title>
-    <link rel="stylesheet" href="style.css">
+    <title>مفاجأة لكِ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+        body {
+            font-family: 'Scheherazade New', serif;
+            background: url('background.jpg') no-repeat center center/cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+    </style>
 </head>
-<body>
-    <h1>Company Breakfast Orders</h1>
-    <p>Place your order below:</p>
-
-    <form id="orderForm">
-        <div>
-            <label>طعمية شامي - L.E<span>6</span></label>
-            <input type="number" id="sandwich1" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>فول شامي  - L.E<span>6</span></label>
-            <input type="number" id="sandwich2" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>بطاطس شامي  - L.E<span>8</span></label>
-            <input type="number" id="sandwich3" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>طعمية لف - L.E<span>9</span></label>
-            <input type="number" id="sandwich4" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>فول + طعمية شامي - L.E<span>8</span></label>
-            <input type="number" id="sandwich5" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>طعمية + بذنجان لف - L.E<span>7</span></label>
-            <input type="number" id="sandwich6" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>Sandwich 7 (Tuna) - $<span>6</span></label>
-            <input type="number" id="sandwich7" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>Sandwich 8 (Grilled Cheese) - $<span>5</span></label>
-            <input type="number" id="sandwich8" min="0" placeholder="Quantity" />
-        </div>
-        <div>
-            <label>Sandwich 9 (Ham) - $<span>7</span></label>
-            <input type="number" id="sandwich9" min="0" placeholder="Quantity" />
-        </div>
-        <button type="button" id="submitOrder">Submit Order</button>
-    </form>
-    <form id="orderForm">
-        <div>
-            <label>Name:</label>
-            <input type="text" id="userName" placeholder="Enter your name" required />
-        </div>
-        <!-- Other form fields remain unchanged -->
-    </form>
-    
-    <h2>All Orders</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Sandwiches Ordered</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody id="allOrders"></tbody>
-    </table>
-    
-    
-    <h2>Final Order Summary</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Sandwich</th>
-                <th>Total Quantity</th>
-            </tr>
-        </thead>
-        <tbody id="orderSummary">
-            <tr><td>طعمية شامي  </td><td id="totalSandwich1">0</td></tr>
-            <tr><td>فول شامي </td><td id="totalSandwich2">0</td></tr>
-            <tr><td>بطاطس شامي </td><td id="totalSandwich3">0</td></tr>
-            <tr><td>طعمية لف </td><td id="totalSandwich4">0</td></tr>
-            <tr><td>فول + طعمية شامي </td><td id="totalSandwich5">0</td></tr>
-            <tr><td>طعمية + بذنجان لف </td><td id="totalSandwich6">0</td></tr>
-            <tr><td>Sandwich 7 (Tuna)</td><td id="totalSandwich7">0</td></tr>
-            <tr><td>Sandwich 8 (Grilled Cheese)</td><td id="totalSandwich8">0</td></tr>
-            <tr><td>Sandwich 9 (Ham)</td><td id="totalSandwich9">0</td></tr>
-        </tbody>
-    </table>
-
-    <h2>Receipt</h2>
-    <p id="receipt"></p>
-
-    <button type="button" id="resetOrders">Reset Orders</button>
-
-    <script src="main.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
-    
-</body>
-</html>
-
-    <!-- <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyBL0rkLQhibArmSXXI4SGGHnsehugFlseo",
-          authDomain: "orders-8dbea.firebaseapp.com",
-          databaseURL: "https://orders-8dbea-default-rtdb.firebaseio.com",
-          projectId: "orders-8dbea",
-          storageBucket: "orders-8dbea.firebasestorage.app",
-          messagingSenderId: "564619354178",
-          appId: "1:564619354178:web:9d08279d6e0a71d1ac4ddb",
-          measurementId: "G-D3M3C7NZTR"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js"></script> -->
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-     <link rel="stylesheet" href="css/bootstrap.min.css">
-     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <h3 class="text-center pt-3">Product management system</h3>
-    <div class="parent  w-75 m-auto">
-
-        <label class="mb-1" for="email">email</label>
-        <input class="form-control" id="email" type="text" name="email">
-   
-        <label class="mb-1" for="password">password</label>
-        <input class="form-control" id="password" type="text" name="password">
-        
-
-       
-
-       <button onclick="signin();"   class="btn btn-outline-info mt-1">sign in</button>
-       <button onclick="signup();"  class="btn btn-outline-success mt-1">sign up</button>
-
-    </div> -->
-
-    <!-- <div class="parent  w-75 m-auto">
-        <label class="mb-1" for="productNameInput">product name</label>
-        <input class="form-control" id="productNameInput" type="text" name="productName">
-   
-        <label class="mb-1" for="productModelInput">product model</label>
-        <input class="form-control" id="productModelInput" type="text" name="productModel">
-   
-        <label class="mb-1" for="productPriceInput">product price</label>
-        <input class="form-control" id="productPriceInput" type="number" name="productPrice">
-        
-
-       
-
-       <button onclick="AddProduct();"   class="btn btn-outline-info mt-1">Add product</button>
-       <button onclick="updateProduct();"  class="btn btn-outline-success mt-1">update product</button>
-
+<body class="flex items-center justify-center h-screen text-white relative" onclick="startAudio()">
+    <div class="overlay"></div>
+    <div class="text-center z-10">
+        <h1 class="text-5xl font-bold mb-4">مفاجأة لكِ</h1>
+        <p class="text-2xl mb-4">لأنكِ الأجمل دائمًا في قلبي، وهذه لحظة خاصة لأجلكِ</p>
+        <p class="text-lg">اضغط على الشاشة لتشغيل الموسيقى</p>
     </div>
-    <hr/> 
-    <table class="table w-75 m-auto">
-        <thead>
-            <th>index</th>
-            <th>product name</th>
-            <th>product model</th>
-            <th id="aa" >product price</th>
-            <th>update</th>
-            <th>delete</th>
-            
-        </thead>
-        <tbody id="tableBody"></tbody> -->
-    <!-- </table> -->
-
-
-
-    <script src="js/bootstrap.bundle.min.js" ></script>
-    <script src="js/main.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
-    
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC_y_l8zDDzn18hF6wbn0Yud0pHQUQj6jk",
-            authDomain: "breakfastorders.firebaseapp.com",
-            projectId: "breakfastorders",
-            storageBucket: "breakfastorders.appspot.com",
-            messagingSenderId: "571174131",
-            appId: "1:571174131:web:082181d2e65be3f73e5b86",
-            measurementId: "G-L19YB7L5T7"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-    
-        // Initialize Firestore
-        const db = getFirestore(app);
+    <audio id="romanticAudio" src="romantic-music.mp3"></audio>
+    <script>
+        function startAudio() {
+            let audio = document.getElementById('romanticAudio');
+            setTimeout(() => {
+                audio.play();
+            }, 10);
+            document.body.onclick = null; // Prevent multiple clicks
+        }
     </script>
-    <!-- <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyC_y_l8zDDzn18hF6wbn0Yud0pHQUQj6jk",
-          authDomain: "breakfastorders.firebaseapp.com",
-          projectId: "breakfastorders",
-          storageBucket: "breakfastorders.firebasestorage.app",
-          messagingSenderId: "571174131",
-          appId: "1:571174131:web:082181d2e65be3f73e5b86",
-          measurementId: "G-L19YB7L5T7"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script> -->
 </body>
 </html>
-
-
-
